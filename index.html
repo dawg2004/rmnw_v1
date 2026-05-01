@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RMNW 一般社団法人 再生医療ネットワーク</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans JP',sans-serif;color:#1a2a3a;background:#EEF6FB;min-height:100vh}
+
+  .top-bar{background:#ffffff;border-bottom:1px solid #d0e4f0;padding:10px 40px;display:flex;align-items:center;justify-content:space-between}
+  .org-badge{font-size:11px;color:#6a8a9a;font-weight:300;letter-spacing:0.05em}
+  .top-nav{display:flex;gap:20px}
+  .top-nav a{font-size:12px;color:#6a8a9a;text-decoration:none;font-weight:300}
+
+  .header{background:#ffffff;border-bottom:2px solid #1D4E7A;padding:16px 40px;display:flex;align-items:center;justify-content:space-between}
+  .logo-area{display:flex;align-items:baseline;gap:12px}
+  .logo-abbr{font-family:'Noto Serif JP',serif;font-size:26px;font-weight:500;color:#1D4E7A;letter-spacing:0.1em}
+  .logo-divider{width:1px;height:20px;background:#d0e4f0;margin:0 4px}
+  .logo-text{font-size:12px;color:#6a8a9a;font-weight:300;line-height:1.5}
+  .main-nav{display:flex;gap:6px;align-items:center}
+  .nav-item{font-size:13px;padding:6px 14px;border-radius:4px;color:#1a2a3a;font-weight:300;cursor:pointer;border:1px solid transparent;text-decoration:none;display:inline-block}
+  .nav-item:hover{background:#EEF6FB;border-color:#d0e4f0}
+  .nav-item.active{color:#1D4E7A;border-color:#1D4E7A}
+  .nav-cta{background:#1D4E7A;color:white;border-radius:4px;padding:6px 16px;font-size:13px;font-weight:400;cursor:pointer;border:none;text-decoration:none;display:inline-block}
+
+  .hero{background:linear-gradient(135deg,#0A2744 0%,#1D4E7A 55%,#2A6FA8 100%);padding:52px 40px 48px;position:relative;overflow:hidden}
+  .hero-grid{position:absolute;inset:0;opacity:0.05;background-image:linear-gradient(rgba(255,255,255,0.4) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.4) 1px,transparent 1px);background-size:40px 40px}
+  .hero-inner{position:relative;max-width:680px}
+  .hero-kicker{font-size:11px;letter-spacing:0.15em;color:rgba(255,255,255,0.55);font-weight:300;margin-bottom:16px;text-transform:uppercase}
+  .hero-title{font-family:'Noto Serif JP',serif;font-size:27px;font-weight:500;color:white;line-height:1.55;margin-bottom:16px}
+  .hero-title em{font-style:normal;color:#7DC8F0}
+  .hero-desc{font-size:14px;color:rgba(255,255,255,0.72);line-height:1.9;font-weight:300;max-width:540px;margin-bottom:28px}
+  .hero-actions{display:flex;gap:12px}
+  .btn-primary{background:white;color:#1D4E7A;padding:10px 24px;border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;border:none}
+  .btn-secondary{background:transparent;color:white;padding:10px 24px;border-radius:4px;font-size:13px;font-weight:300;cursor:pointer;border:1px solid rgba(255,255,255,0.38)}
+  .hero-stats{position:absolute;right:40px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1px;overflow:hidden;border-radius:8px;border:1px solid rgba(255,255,255,0.15)}
+  .stat-card{background:rgba(255,255,255,0.09);padding:14px 22px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.1)}
+  .stat-card:last-child{border-bottom:none}
+  .stat-num{font-size:22px;font-weight:500;color:white;font-family:'Noto Serif JP',serif}
+  .stat-label{font-size:10px;color:rgba(255,255,255,0.5);font-weight:300;margin-top:3px;letter-spacing:0.05em}
+
+  .section-band{background:#D8EDF8;border-top:1px solid #b8d8ec;border-bottom:1px solid #b8d8ec;padding:10px 40px;display:flex;gap:6px;align-items:center}
+  .band-label{font-size:11px;color:#4a7a9a;font-weight:300;letter-spacing:0.08em;margin-right:4px}
+  .band-tag{font-size:11px;padding:2px 10px;border-radius:20px;background:white;border:1px solid #b8d8ec;color:#4a7a9a;font-weight:300}
+
+  .main-layout{display:grid;grid-template-columns:1fr 280px;gap:28px;padding:32px 40px}
+
+  .section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px}
+  .section-title{font-size:14px;font-weight:500;color:#1a2a3a;letter-spacing:0.05em;border-left:3px solid #1D4E7A;padding-left:10px}
+  .section-more{font-size:12px;color:#1D4E7A;cursor:pointer;text-decoration:none}
+
+  .news-list{display:flex;flex-direction:column;background:white;border-radius:8px;border:1px solid #d0e4f0;overflow:hidden;margin-bottom:28px}
+  .news-item{padding:13px 16px;display:flex;gap:14px;align-items:flex-start;border-bottom:1px solid #eef4f9;cursor:pointer;text-decoration:none}
+  .news-item:last-child{border-bottom:none}
+  .news-date{font-size:11px;color:#7a9aaa;font-weight:300;min-width:68px;padding-top:2px;font-variant-numeric:tabular-nums}
+  .news-cat{font-size:10px;padding:2px 8px;border-radius:2px;font-weight:400;min-width:52px;text-align:center;margin-top:1px;flex-shrink:0}
+  .cat-notice{background:#E6F1FB;color:#185FA5}
+  .cat-edu{background:#E1F5EE;color:#0F6E56}
+  .cat-event{background:#FAEEDA;color:#854F0B}
+  .news-title{font-size:13px;font-weight:300;line-height:1.6;color:#1a2a3a}
+
+  .doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .doc-card{background:white;border:1px solid #d0e4f0;border-radius:8px;padding:14px;cursor:pointer;position:relative;overflow:hidden;text-decoration:none;display:block}
+  .doc-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+  .doc-card.blue::before{background:#1D4E7A}
+  .doc-card.teal::before{background:#1D9E75}
+  .doc-card.amber::before{background:#BA7517}
+  .doc-card.coral::before{background:#D85A30}
+  .doc-label{font-size:10px;color:#7a9aaa;font-weight:300;margin-bottom:5px;letter-spacing:0.05em}
+  .doc-title{font-size:12px;font-weight:500;color:#1a2a3a;line-height:1.6}
+  .doc-count{font-size:10px;color:#9ab0be;margin-top:7px}
+
+  .sidebar-card{background:white;border:1px solid #d0e4f0;border-radius:8px;padding:16px;margin-bottom:16px}
+  .sidebar-title{font-size:13px;font-weight:500;border-left:2px solid #1D4E7A;padding-left:8px;margin-bottom:12px;color:#1a2a3a}
+  .link-list{list-style:none}
+  .link-list li{font-size:12px;padding:7px 0;border-bottom:1px solid #eef4f9;color:#1a2a3a;font-weight:300;cursor:pointer}
+  .link-list li:last-child{border-bottom:none}
+  .link-list li::before{content:'›';color:#1D4E7A;margin-right:6px}
+  .discord-banner{background:#5865F2;border-radius:8px;padding:14px;color:white;margin-bottom:16px}
+  .discord-banner .d-title{font-size:13px;font-weight:500;margin-bottom:4px}
+  .discord-banner .d-desc{font-size:11px;font-weight:300;opacity:0.85;line-height:1.6;margin-bottom:10px}
+  .discord-btn{background:white;color:#5865F2;font-size:11px;font-weight:500;padding:6px 14px;border-radius:3px;border:none;cursor:pointer;width:100%}
+  .inquiry-card{background:#0A2744;border-radius:8px;padding:16px;color:white}
+  .inquiry-card .i-title{font-size:13px;font-weight:500;margin-bottom:4px}
+  .inquiry-card .i-desc{font-size:11px;opacity:0.7;font-weight:300;line-height:1.6;margin-bottom:10px}
+  .inquiry-btn{background:white;color:#0A2744;font-size:11px;font-weight:500;padding:7px 14px;border-radius:3px;border:none;cursor:pointer;width:100%}
+
+  .footer{background:#0A2744;padding:28px 40px 20px;margin-top:8px}
+  .footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px}
+  .footer-col .fc-title{font-size:12px;color:rgba(255,255,255,0.85);font-weight:500;margin-bottom:10px;letter-spacing:0.05em}
+  .footer-col .fc-text{font-size:11px;color:rgba(255,255,255,0.48);font-weight:300;line-height:1.8}
+  .footer-col ul{list-style:none}
+  .footer-col ul li{font-size:11px;color:rgba(255,255,255,0.48);font-weight:300;padding:3px 0}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:14px;display:flex;justify-content:space-between;align-items:center}
+  .footer-copy{font-size:10px;color:rgba(255,255,255,0.3);font-weight:300}
+</style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <span class="org-badge">一般社団法人　再生医療ネットワーク</span>
+    <div class="top-nav">
+      <a href="#">アクセシビリティ</a>
+      <a href="#">サイトマップ</a>
+      <a href="#">English</a>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="logo-area">
+      <span class="logo-abbr">RMNW</span>
+      <div class="logo-divider"></div>
+      <div class="logo-text">再生医療ネットワーク<br>Regenerative Medicine Network</div>
+    </div>
+    <div class="main-nav">
+      <a href="#" class="nav-item active">ホーム</a>
+      <a href="#" class="nav-item">法規制・申請</a>
+      <a href="#" class="nav-item">学習コンテンツ</a>
+      <a href="#" class="nav-item">講習会・イベント</a>
+      <a href="#" class="nav-item">機関登録</a>
+      <a href="#" class="nav-cta">お問い合わせ</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-kicker">Regenerative Medicine Network</div>
+      <h1 class="hero-title">再生医療に携わる<em>医師・医療従事者</em>のための<br>専門情報プラットフォーム</h1>
+      <p class="hero-desc">法規制・申請手続きから臨床技術・美容皮膚科学まで、エビデンスに基づいた信頼性の高い情報を提供します。医師・研究者・技術提供者が安心して活用できる場を目指しています。</p>
+      <div class="hero-actions">
+        <button class="btn-primary">会員ページ</button>
+        <button class="btn-secondary">機関登録について</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">40+</div>
+        <div class="stat-label">専門教科書</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">無料</div>
+        <div class="stat-label">コンテンツ公開</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2025</div>
+        <div class="stat-label">設立年</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-band">
+    <span class="band-label">主な対象</span>
+    <span class="band-tag">医師</span>
+    <span class="band-tag">看護師</span>
+    <span class="band-tag">研究者</span>
+    <span class="band-tag">技術提供者</span>
+    <span class="band-tag">事業者</span>
+  </div>
+
+  <div class="main-layout">
+    <div>
+      <div class="section-header">
+        <div class="section-title">お知らせ</div>
+        <a href="#" class="section-more">一覧を見る ›</a>
+      </div>
+      <div class="news-list">
+        <div class="news-item">
+          <span class="news-date">2025.10.02</span>
+          <span class="news-cat cat-edu">学習</span>
+          <span class="news-title">美容皮膚科の診察→治療計画→治療を取り戻す　AI生成イラスト付き "教科書 全40冊" を無料公開</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2025.10.02</span>
+          <span class="news-cat cat-edu">学習</span>
+          <span class="news-title">FGF併用線維芽細胞注入療法に関するリスクと副作用の調査報告</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2025.08.26</span>
+          <span class="news-cat cat-event">講習会</span>
+          <span class="news-title">【日曜集中】"手打ち"でダウンタイム最小化を目指すPRPピンポイント注入テクニック講習会を開始</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2025.08.05</span>
+          <span class="news-cat cat-notice">お知らせ</span>
+          <span class="news-title">再生医療・美容医療に必要な情報を網羅した専門コンテンツ公開のご案内</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2025.05.01</span>
+          <span class="news-cat cat-notice">お知らせ</span>
+          <span class="news-title">一般社団法人 再生医療ネットワーク（RMNW）、業務開始および医療機関の登録受付スタート</span>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">学習コンテンツ</div>
+        <a href="#" class="section-more">すべて見る ›</a>
+      </div>
+      <div class="doc-grid">
+        <a href="#" class="doc-card blue">
+          <div class="doc-label">法規制・申請</div>
+          <div class="doc-title">第三種再生医療等の提供計画申請・手続き完全ガイド</div>
+          <div class="doc-count">提出〜受理の流れを詳解</div>
+        </a>
+        <a href="#" class="doc-card teal">
+          <div class="doc-label">美容皮膚科学</div>
+          <div class="doc-title">美容皮膚科学 教科書シリーズ（全40冊）</div>
+          <div class="doc-count">AI生成イラスト付き・無料公開</div>
+        </a>
+        <a href="#" class="doc-card amber">
+          <div class="doc-label">技術・施術</div>
+          <div class="doc-title">PRPピンポイント注入テクニック 実践講座</div>
+          <div class="doc-count">ダウンタイム最小化アプローチ</div>
+        </a>
+        <a href="#" class="doc-card coral">
+          <div class="doc-label">リスク管理</div>
+          <div class="doc-title">美容医療における医師法・薬機法の実務知識と規制解説</div>
+          <div class="doc-count">広告規制・承認外使用の実務</div>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="discord-banner">
+        <div class="d-title">Discord コミュニティ</div>
+        <div class="d-desc">医療従事者・研究者・事業者が情報交換できるオープンな場です。参加無料。</div>
+        <button class="discord-btn">サーバーに参加する</button>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">関連リンク</div>
+        <ul class="link-list">
+          <li>厚生労働省 法令等データベース</li>
+          <li>e-再生医療システム（厚労省）</li>
+          <li>認定再生医療等委員会について</li>
+          <li>RMNW公式YouTubeチャンネル</li>
+        </ul>
+      </div>
+
+      <div class="inquiry-card">
+        <div class="i-title">機関登録・お問い合わせ</div>
+        <div class="i-desc">医療機関の登録受付中。支援サービス・開業サポートについてはお気軽にご相談ください。</div>
+        <button class="inquiry-btn">お問い合わせフォームへ</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="fc-title">RMNW について</div>
+        <div class="fc-text">一般社団法人 再生医療ネットワーク（RMNW）は、再生医療分野の発展と信頼性向上を目的として2025年に設立された法人です。代表理事：松原充久</div>
+      </div>
+      <div class="footer-col">
+        <div class="fc-title">主なサービス</div>
+        <ul>
+          <li>小規模（ミニマム）開業支援</li>
+          <li>再生医療機関への登録支援</li>
+          <li>美容衛生部材の供給・コンサルテーション</li>
+          <li>医療機関向けWEB制作・運用サポート</li>
+          <li>医療情報・法令等の要約提供</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="fc-title">コンテンツカテゴリ</div>
+        <ul>
+          <li>法規制・申請手続き</li>
+          <li>美容皮膚科学 教科書</li>
+          <li>講習会・研修</li>
+          <li>お知らせ・最新情報</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 一般社団法人 再生医療ネットワーク（RMNW）. All rights reserved.</span>
+      <span class="footer-copy">プライバシーポリシー　｜　利用規約</span>
+    </div>
+  </div>
+
+</body>
+</html>
