@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RMNW 一般社団法人 再生医療ネットワーク</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans JP',sans-serif;color:#1a2a3a;background:#EEF6FB;min-height:100vh;font-size:14px}
+
+  /* ── HEADER ── */
+  .header{background:#fff;border-bottom:2px solid #1D4E7A;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+  .logo-abbr{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:500;color:#1D4E7A;letter-spacing:0.1em}
+  .logo-sub{font-size:9px;color:#6a8a9a;font-weight:300;line-height:1.4;margin-left:8px}
+  .logo-wrap{display:flex;align-items:baseline}
+  .menu-btn{width:36px;height:36px;display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:4px}
+  .menu-btn span{display:block;height:1.5px;background:#1D4E7A;border-radius:2px;transition:all 0.3s}
+
+  /* ── DRAWER ── */
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200}
+  .drawer{position:fixed;top:0;right:-260px;width:260px;height:100%;background:#fff;z-index:300;transition:right 0.3s ease;padding:0;box-shadow:-4px 0 20px rgba(0,0,0,0.1)}
+  .drawer.open{right:0}
+  .overlay.open{display:block}
+  .drawer-header{background:#0A2744;padding:20px 16px;display:flex;align-items:center;justify-content:space-between}
+  .drawer-logo{font-family:'Noto Serif JP',serif;font-size:18px;color:white;font-weight:500;letter-spacing:0.1em}
+  .close-btn{color:rgba(255,255,255,0.7);font-size:22px;cursor:pointer;line-height:1}
+  .drawer-nav{list-style:none;padding:8px 0}
+  .drawer-nav li a{display:block;padding:14px 20px;font-size:14px;color:#1a2a3a;font-weight:300;text-decoration:none;border-bottom:1px solid #eef4f9}
+  .drawer-nav li a::before{content:'›';color:#1D4E7A;margin-right:8px}
+  .drawer-cta{margin:16px;background:#1D4E7A;color:white;text-align:center;padding:12px;border-radius:4px;font-size:13px;font-weight:400;cursor:pointer;display:block;text-decoration:none}
+
+  /* ── HERO ── */
+  .hero{background:linear-gradient(135deg,#0A2744 0%,#1D4E7A 55%,#2A6FA8 100%);padding:36px 16px 32px;position:relative;overflow:hidden}
+  .hero-grid{position:absolute;inset:0;opacity:0.05;background-image:linear-gradient(rgba(255,255,255,0.4) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.4) 1px,transparent 1px);background-size:32px 32px}
+  .hero-inner{position:relative}
+  .hero-kicker{font-size:10px;letter-spacing:0.15em;color:rgba(255,255,255,0.5);font-weight:300;margin-bottom:12px;text-transform:uppercase}
+  .hero-title{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:500;color:white;line-height:1.6;margin-bottom:12px}
+  .hero-title em{font-style:normal;color:#7DC8F0}
+  .hero-desc{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.9;font-weight:300;margin-bottom:20px}
+  .hero-actions{display:flex;gap:10px}
+  .btn-primary{background:white;color:#1D4E7A;padding:10px 18px;border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;border:none;flex:1;text-align:center}
+  .btn-secondary{background:transparent;color:white;padding:10px 18px;border-radius:4px;font-size:12px;font-weight:300;cursor:pointer;border:1px solid rgba(255,255,255,0.38);flex:1;text-align:center}
+
+  /* ── STATS ── */
+  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#d0e4f0;border-top:1px solid #b8d8ec;border-bottom:1px solid #b8d8ec}
+  .stat-cell{background:#D8EDF8;padding:12px 8px;text-align:center}
+  .stat-num{font-size:18px;font-weight:500;color:#1D4E7A;font-family:'Noto Serif JP',serif}
+  .stat-label{font-size:9px;color:#4a7a9a;font-weight:300;margin-top:2px;letter-spacing:0.04em}
+
+  /* ── BAND ── */
+  .section-band{background:#D8EDF8;border-bottom:1px solid #b8d8ec;padding:8px 16px;display:flex;gap:6px;align-items:center;overflow-x:auto;white-space:nowrap}
+  .band-label{font-size:10px;color:#4a7a9a;font-weight:300;letter-spacing:0.06em;flex-shrink:0}
+  .band-tag{font-size:10px;padding:2px 8px;border-radius:20px;background:white;border:1px solid #b8d8ec;color:#4a7a9a;font-weight:300;flex-shrink:0}
+
+  /* ── SECTIONS ── */
+  .section{padding:20px 16px}
+  .section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+  .section-title{font-size:13px;font-weight:500;color:#1a2a3a;border-left:3px solid #1D4E7A;padding-left:8px}
+  .section-more{font-size:11px;color:#1D4E7A;text-decoration:none}
+
+  /* ── NEWS ── */
+  .news-list{background:white;border-radius:8px;border:1px solid #d0e4f0;overflow:hidden}
+  .news-item{padding:12px 14px;display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid #eef4f9;cursor:pointer}
+  .news-item:last-child{border-bottom:none}
+  .news-meta{display:flex;flex-direction:column;gap:4px;min-width:56px;flex-shrink:0}
+  .news-date{font-size:10px;color:#7a9aaa;font-weight:300;font-variant-numeric:tabular-nums}
+  .news-cat{font-size:9px;padding:2px 6px;border-radius:2px;font-weight:400;text-align:center}
+  .cat-notice{background:#E6F1FB;color:#185FA5}
+  .cat-edu{background:#E1F5EE;color:#0F6E56}
+  .cat-event{background:#FAEEDA;color:#854F0B}
+  .news-title{font-size:12px;font-weight:300;line-height:1.6;color:#1a2a3a}
+
+  /* ── DOC CARDS ── */
+  .doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .doc-card{background:white;border:1px solid #d0e4f0;border-radius:8px;padding:12px;cursor:pointer;position:relative;overflow:hidden;text-decoration:none;display:block}
+  .doc-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+  .doc-card.blue::before{background:#1D4E7A}
+  .doc-card.teal::before{background:#1D9E75}
+  .doc-card.amber::before{background:#BA7517}
+  .doc-card.coral::before{background:#D85A30}
+  .doc-label{font-size:9px;color:#7a9aaa;font-weight:300;margin-bottom:4px;letter-spacing:0.04em}
+  .doc-title{font-size:11px;font-weight:500;color:#1a2a3a;line-height:1.6}
+  .doc-count{font-size:9px;color:#9ab0be;margin-top:6px}
+
+  /* ── SIDEBAR CARDS ── */
+  .discord-banner{background:#5865F2;border-radius:8px;padding:14px;color:white;margin:0 16px 12px}
+  .discord-banner .d-title{font-size:13px;font-weight:500;margin-bottom:4px}
+  .discord-banner .d-desc{font-size:11px;font-weight:300;opacity:0.85;line-height:1.6;margin-bottom:10px}
+  .discord-btn{background:white;color:#5865F2;font-size:11px;font-weight:500;padding:8px 14px;border-radius:3px;border:none;cursor:pointer;width:100%}
+  .info-card{background:white;border:1px solid #d0e4f0;border-radius:8px;padding:14px;margin:0 16px 12px}
+  .info-title{font-size:12px;font-weight:500;border-left:2px solid #1D4E7A;padding-left:8px;margin-bottom:10px;color:#1a2a3a}
+  .link-list{list-style:none}
+  .link-list li{font-size:12px;padding:7px 0;border-bottom:1px solid #eef4f9;color:#1a2a3a;font-weight:300;cursor:pointer}
+  .link-list li:last-child{border-bottom:none}
+  .link-list li::before{content:'›';color:#1D4E7A;margin-right:6px}
+  .inquiry-card{background:#0A2744;border-radius:8px;padding:14px;color:white;margin:0 16px 24px}
+  .inquiry-card .i-title{font-size:13px;font-weight:500;margin-bottom:4px}
+  .inquiry-card .i-desc{font-size:11px;opacity:0.7;font-weight:300;line-height:1.6;margin-bottom:10px}
+  .inquiry-btn{background:white;color:#0A2744;font-size:11px;font-weight:500;padding:8px 14px;border-radius:3px;border:none;cursor:pointer;width:100%}
+
+  /* ── FOOTER ── */
+  .footer{background:#0A2744;padding:24px 16px 16px}
+  .footer-section{margin-bottom:18px}
+  .fc-title{font-size:11px;color:rgba(255,255,255,0.85);font-weight:500;margin-bottom:8px;letter-spacing:0.05em}
+  .fc-text{font-size:10px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.8}
+  .fc-list{list-style:none}
+  .fc-list li{font-size:10px;color:rgba(255,255,255,0.45);font-weight:300;padding:2px 0}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:12px;text-align:center}
+  .footer-copy{font-size:9px;color:rgba(255,255,255,0.28);font-weight:300;display:block;line-height:1.8}
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo-wrap">
+      <span class="logo-abbr">RMNW</span>
+      <span class="logo-sub">再生医療ネットワーク</span>
+    </div>
+    <div class="menu-btn" onclick="openDrawer()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <span class="drawer-logo">RMNW</span>
+      <span class="close-btn" onclick="closeDrawer()">✕</span>
+    </div>
+    <ul class="drawer-nav">
+      <li><a href="#">ホーム</a></li>
+      <li><a href="#">法規制・申請</a></li>
+      <li><a href="#">学習コンテンツ</a></li>
+      <li><a href="#">講習会・イベント</a></li>
+      <li><a href="#">機関登録</a></li>
+    </ul>
+    <a href="#" class="drawer-cta">お問い合わせ</a>
+  </div>
+
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-kicker">Regenerative Medicine Network</div>
+      <h1 class="hero-title">再生医療に携わる<em>医師・医療従事者</em>のための専門情報プラットフォーム</h1>
+      <p class="hero-desc">法規制・申請手続きから臨床技術・美容皮膚科学まで、エビデンスに基づいた信頼性の高い情報を提供します。</p>
+      <div class="hero-actions">
+        <button class="btn-primary">会員ページ</button>
+        <button class="btn-secondary">機関登録について</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">お知らせ</div>
+      <a href="#" class="section-more">一覧を見る ›</a>
+    </div>
+    <div class="news-list">
+      <div class="news-item">
+        <div class="news-meta">
+          <span class="news-date">2025.10.02</span>
+          <span class="news-cat cat-edu">学習</span>
+        </div>
+        <span class="news-title">美容皮膚科の診察→治療計画→治療を取り戻す　AI生成イラスト付き "教科書 全40冊" を無料公開</span>
+      </div>
+      <div class="news-item">
+        <div class="news-meta">
+          <span class="news-date">2025.10.02</span>
+          <span class="news-cat cat-edu">学習</span>
+        </div>
+        <span class="news-title">FGF併用線維芽細胞注入療法に関するリスクと副作用の調査報告</span>
+      </div>
+      <div class="news-item">
+        <div class="news-meta">
+          <span class="news-date">2025.08.26</span>
+          <span class="news-cat cat-event">講習会</span>
+        </div>
+        <span class="news-title">【日曜集中】PRPピンポイント注入テクニック講習会を開始</span>
+      </div>
+      <div class="news-item">
+        <div class="news-meta">
+          <span class="news-date">2025.08.05</span>
+          <span class="news-cat cat-notice">お知らせ</span>
+        </div>
+        <span class="news-title">再生医療・美容医療に必要な情報を網羅した専門コンテンツ公開のご案内</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0">
+    <div class="section-header">
+      <div class="section-title">学習コンテンツ</div>
+      <a href="#" class="section-more">すべて見る ›</a>
+    </div>
+    <div class="doc-grid">
+      <a href="#" class="doc-card blue">
+        <div class="doc-label">法規制・申請</div>
+        <div class="doc-title">第三種再生医療等の提供計画申請ガイド</div>
+        <div class="doc-count">提出〜受理の流れを詳解</div>
+      </a>
+      <a href="#" class="doc-card teal">
+        <div class="doc-label">美容皮膚科学</div>
+        <div class="doc-title">美容皮膚科学 教科書シリーズ（全40冊）</div>
+        <div class="doc-count">AI生成イラスト付き・無料</div>
+      </a>
+      <a href="#" class="doc-card amber">
+        <div class="doc-label">技術・施術</div>
+        <div class="doc-title">PRPピンポイント注入テクニック実践講座</div>
+        <div class="doc-count">ダウンタイム最小化</div>
+      </a>
+      <a href="#" class="doc-card coral">
+        <div class="doc-label">リスク管理</div>
+        <div class="doc-title">医師法・薬機法の実務知識と規制解説</div>
+        <div class="doc-count">広告規制・承認外使用</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="discord-banner">
+    <div class="d-title">Discord コミュニティ</div>
+    <div class="d-desc">医療従事者・研究者・事業者が情報交換できるオープンな場。参加無料。</div>
+    <button class="discord-btn">サーバーに参加する</button>
+  </div>
+
+  <div class="info-card">
+    <div class="info-title">関連リンク</div>
+    <ul class="link-list">
+      <li>厚生労働省 法令等データベース</li>
+      <li>e-再生医療システム（厚労省）</li>
+      <li>認定再生医療等委員会について</li>
+      <li>RMNW公式YouTubeチャンネル</li>
+    </ul>
+  </div>
+
+  <div class="inquiry-card">
+    <div class="i-title">機関登録・お問い合わせ</div>
+    <div class="i-desc">医療機関の登録受付中。支援サービス・開業サポートについてはお気軽にご相談ください。</div>
+    <button class="inquiry-btn">お問い合わせフォームへ</button>
+  </div>
+
+  <div class="footer">
+    <div class="footer-section">
+      <div class="fc-title">RMNW について</div>
+      <div class="fc-text">一般社団法人 再生医療ネットワーク（RMNW）は、再生医療分野の発展と信頼性向上を目的として2025年に設立された法人です。代表理事：松原充久</div>
+    </div>
+    <div class="footer-section">
+      <div class="fc-title">主なサービス</div>
+      <ul class="fc-list">
+        <li>小規模（ミニマム）開業支援</li>
+        <li>再生医療機関への登録支援</li>
+        <li>美容衛生部材の供給・コンサルテーション</li>
+        <li>医療機関向けWEB制作・運用サポート</li>
+        <li>医療情報・法令等の要約提供</li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 一般社団法人 再生医療ネットワーク（RMNW）</span>
+      <span class="footer-copy">プライバシーポリシー　｜　利用規約</span>
+    </div>
+  </div>
+
+  <script>
+    function openDrawer(){
+      document.getElementById('drawer').classList.add('open');
+      document.getElementById('overlay').classList.add('open');
+    }
+    function closeDrawer(){
+      document.getElementById('drawer').classList.remove('open');
+      document.getElementById('overlay').classList.remove('open');
+    }
+  </script>
+</body>
+</html>
