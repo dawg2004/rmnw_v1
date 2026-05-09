@@ -75,6 +75,7 @@
   /* ── DOC CARDS ── */
   .doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
   .doc-card{background:white;border:1px solid #d0e4f0;border-radius:8px;padding:12px;cursor:pointer;position:relative;overflow:hidden;text-decoration:none;display:block}
+  .doc-img{width:calc(100% + 24px);margin:-12px -12px 8px -12px;height:90px;object-fit:cover;display:block}
   .doc-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
   .doc-card.blue::before{background:#1D4E7A}
   .doc-card.teal::before{background:#1D9E75}
@@ -198,21 +199,25 @@
     </div>
     <div class="doc-grid">
       <a href="#" class="doc-card blue">
+        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&q=80" class="doc-img" alt="法規制・申請">
         <div class="doc-label">法規制・申請</div>
         <div class="doc-title">第三種再生医療等の提供計画申請ガイド</div>
         <div class="doc-count">提出〜受理の流れを詳解</div>
       </a>
       <a href="#" class="doc-card teal">
+        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=400&q=80" class="doc-img" alt="美容皮膚科学">
         <div class="doc-label">美容皮膚科学</div>
         <div class="doc-title">美容皮膚科学 教科書シリーズ（全40冊）</div>
         <div class="doc-count">AI生成イラスト付き・無料</div>
       </a>
       <a href="#" class="doc-card amber">
+        <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&q=80" class="doc-img" alt="技術・施術">
         <div class="doc-label">技術・施術</div>
         <div class="doc-title">PRPピンポイント注入テクニック実践講座</div>
         <div class="doc-count">ダウンタイム最小化</div>
       </a>
       <a href="#" class="doc-card coral">
+        <img src="https://images.unsplash.com/photo-1576671081837-49000212a370?w=400&q=80" class="doc-img" alt="リスク管理">
         <div class="doc-label">リスク管理</div>
         <div class="doc-title">医師法・薬機法の実務知識と規制解説</div>
         <div class="doc-count">広告規制・承認外使用</div>
